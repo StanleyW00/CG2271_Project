@@ -67,6 +67,30 @@ void UART1_IRQHandler(void) {
 		foo = UART1->D;
 	}
 }
+
+void commandHandler(Q_T *q) {
+	unsigned char cmd = Q_Dequeue(q);
+	//buzzer(cmd)
+	if ((cmd & 0x02) == 0x02) {
+		// forward
+	}
+	else if ((cmd & 0x01 == 0x01) {
+		// backward
+	}
+	else if ((cmd & 0x08 == 0x08) {
+		// left
+	}
+	else if ((cmd & 0x04 == 0x04) {
+		// right
+	}
+	else if ((cmd & 0x0a == 0x0a) {
+		// forward left
+	}
+	else if ((cmd & 0x06 == 0x06) {
+		// forward right
+	}
+}
+
 void app_main (void *argument) {
  
   // ...
