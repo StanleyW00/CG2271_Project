@@ -410,6 +410,26 @@
               <FileType>5</FileType>
               <FilePath>.\motor_control.h</FilePath>
             </File>
+            <File>
+              <FileName>colorHandler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\colorHandler.c</FilePath>
+            </File>
+            <File>
+              <FileName>colorHandler.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\colorHandler.h</FilePath>
+            </File>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\buzzer.c</FilePath>
+            </File>
+            <File>
+              <FileName>buzzer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\buzzer.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
