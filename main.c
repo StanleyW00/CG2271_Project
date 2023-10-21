@@ -57,8 +57,8 @@ void stationRedLED (void *argument) {
 void initBuzzerPWM(void) {
 	SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;
 	
-	PORTC->PCR[1] &= ~PORT_PCR_MUX_MASK;
-	PORTC->PCR[1] |= PORT_PCR_MUX(4);
+	PORTC->PCR[2] &= ~PORT_PCR_MUX_MASK;
+	PORTC->PCR[2] |= PORT_PCR_MUX(4);
 	
 	SIM->SCGC6 |= SIM_SCGC6_TPM0_MASK;
 	
@@ -71,8 +71,8 @@ void initBuzzerPWM(void) {
 	TPM0->SC |= (TPM_SC_CMOD(1) | TPM_SC_PS(7));
 	TPM0->SC &= ~(TPM_SC_CPWMS_MASK);
 	
-	TPM0_C0SC &= ~((TPM_CnSC_ELSB_MASK) | (TPM_CnSC_ELSA_MASK) | (TPM_CnSC_MSB_MASK) | (TPM_CnSC_MSA_MASK));
-	TPM0_C0SC |= (TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1));
+	TPM0_C1SC &= ~((TPM_CnSC_ELSB_MASK) | (TPM_CnSC_ELSA_MASK) | (TPM_CnSC_MSB_MASK) | (TPM_CnSC_MSA_MASK));
+	TPM0_C1SC |= (TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1));
 }
 
 
@@ -82,33 +82,87 @@ void calculateModValue(int frequency) {
 
 void calculateCnvValue() {
 	// dutyCycle
-	cnvValue = modValue / 16;
+	cnvValue = (modValue)/10;
 }
 
 void changeFrequency(int frequency) {
 	calculateModValue(frequency);
 	calculateCnvValue();
-	TPM1->MOD = modValue;
-	TPM1_C0V = cnvValue;
+	TPM0->MOD = modValue;
+	TPM0_C1V = cnvValue;
 }
 
 void controlBuzzer(void *argument) {
+	
+	/*
 	 for (;;) {
-		changeFrequency(262);
+		changeFrequency(524); // c
 		osDelay(1000);
-		changeFrequency(294);
+		changeFrequency(588); // d
 		osDelay(1000);
-		changeFrequency(330);
+		changeFrequency(660); // e
 		osDelay(1000);	
-		changeFrequency(349);
+		changeFrequency(698); // f
 		osDelay(1000);		
-		changeFrequency(392);
+		changeFrequency(784); // g
 		osDelay(1000);
-		changeFrequency(440);
+		changeFrequency(880); // a
 		osDelay(1000);
-		changeFrequency(494);
+		changeFrequency(988); // b
 		osDelay(1000);
 	 }
+	*/
+	
+	/*
+	for (;;) {
+		changeFrequency(1482); // e
+		osDelay(2000);
+		changeFrequency(1321); // d
+		osDelay(1000);
+		changeFrequency(1976); // a
+		osDelay(3000);
+		changeFrequency(1482); // e
+		osDelay(1000);
+		changeFrequency(1321); // d
+		osDelay(1000);
+		changeFrequency(1760); // g
+		osDelay(2000);
+		changeFrequency(1567); // f
+		osDelay(1000);
+		changeFrequency(1482); // e
+		osDelay(3000);
+	}
+	*/
+	
+	//run mode
+	for (;;) {
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(988); // a
+		osDelay(1000);
+		changeFrequency(1109); // b
+		osDelay(1000);
+		changeFrequency(1176); // c
+		osDelay(1000);
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(988); // a
+		osDelay(1000);
+		changeFrequency(1109); // b
+		osDelay(1000);
+		changeFrequency(1320); // d
+		osDelay(1000);
+		changeFrequency(1176); // c
+		osDelay(1000);
+		changeFrequency(1109); // b
+		osDelay(1000);
+		changeFrequency(1176); // c
+		osDelay(1000);
+		changeFrequency(1320); // d
+		osDelay(1000);
+		changeFrequency(880); // g
+		osDelay(4000);
+	}
 }
 
 int main (void) {
@@ -116,9 +170,9 @@ int main (void) {
   // System Initialization
   SystemCoreClockUpdate();
   //initGPIOLED();
-	initPWM();
+	initBuzzerPWM();
 	
-	TPM1_C0V = 3750;
+	TPM0_C1V = 0;
  
   osKernelInitialize();                 // Initialize CMSIS-RTOS
   osThreadNew(controlBuzzer, NULL, NULL);    // Create application main thread
