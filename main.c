@@ -11,6 +11,19 @@
 int volatile modValue = 0;
 int volatile cnvValue = 0;
 
+#define PTB0_Pin 0
+#define PTB1_Pin 1
+#define PTB2_Pin 2
+#define PTB3_Pin 3
+#define TPM_1 1
+#define TPM_2 2
+
+int volatile modValue1 = 7500;
+int volatile modValue2 = 7500;
+int volatile cnvValue1 = 3000;
+int volatile cnvValue2 = 3000;
+
+
 /*----------------------------------------------------------------------------
  * Application main thread
  *---------------------------------------------------------------------------*/
@@ -41,7 +54,7 @@ void stationRedLED (void *argument) {
 }
 
 
-void initPWM(void) {
+void initBuzzerPWM(void) {
 	SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;
 	
 	PORTC->PCR[1] &= ~PORT_PCR_MUX_MASK;
@@ -62,6 +75,7 @@ void initPWM(void) {
 	TPM0_C0SC |= (TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1));
 }
 
+
 void calculateModValue(int frequency) {
 	modValue = (375000 / frequency);
 }
@@ -74,8 +88,8 @@ void calculateCnvValue() {
 void changeFrequency(int frequency) {
 	calculateModValue(frequency);
 	calculateCnvValue();
-	TPM0->MOD = modValue;
-	TPM0_C0V = cnvValue;
+	TPM1->MOD = modValue;
+	TPM1_C0V = cnvValue;
 }
 
 void controlBuzzer(void *argument) {
@@ -104,7 +118,7 @@ int main (void) {
   //initGPIOLED();
 	initPWM();
 	
-	TPM0_C0V = 3750;
+	TPM1_C0V = 3750;
  
   osKernelInitialize();                 // Initialize CMSIS-RTOS
   osThreadNew(controlBuzzer, NULL, NULL);    // Create application main thread

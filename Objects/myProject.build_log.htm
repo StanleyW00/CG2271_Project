@@ -31,19 +31,24 @@ assembling startup_MKL25Z4.s...
 compiling rtx_lib.c...
 compiling RTX_Config.c...
 compiling system_MKL25Z4.c...
-compiling main.c...
-colorHandler.h(7): warning:  #1-D: last line of file ends without a newline
-  void startFastFlashRed(void);
-main.c: 1 warning, 0 errors
 compiling colorHandler.c...
 colorHandler.h(7): warning:  #1-D: last line of file ends without a newline
   void startFastFlashRed(void);
 colorHandler.c(87): warning:  #1-D: last line of file ends without a newline
   }
 colorHandler.c: 2 warnings, 0 errors
+compiling main.c...
+colorHandler.h(7): warning:  #1-D: last line of file ends without a newline
+  void startFastFlashRed(void);
+main.c(119): warning:  #223-D: function "initPWM" declared implicitly
+  	initPWM();
+main.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=6388 RO-data=496 RW-data=5120 ZI-data=264  
-".\Objects\myProject.axf" - 0 Error(s), 3 Warning(s).
+.\Objects\myProject.axf: Error: L6218E: Undefined symbol initPWM (referred from main.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 1 error messages.
+".\Objects\myProject.axf" - 1 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -78,25 +83,26 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.3.0
 
    * Component: ARM::CMSIS:RTOS2:Keil RTX5:Library:5.5.1
-      Include file:  CMSIS\RTOS2\RTX\Include\rtx_os.h
+      Source file:   CMSIS\RTOS2\RTX\Template\Mutex.c
       Source file:   CMSIS\RTOS2\RTX\Template\Timer.c
       Source file:   CMSIS\RTOS2\RTX\Template\Thread.c
       Source file:   CMSIS\RTOS2\RTX\Template\MemPool.c
-      Source file:   CMSIS\RTOS2\RTX\Template\main.c
-      Source file:   CMSIS\RTOS2\RTX\Template\svc_user.c
+      Include file:  CMSIS\RTOS2\RTX\Include\rtx_os.h
       Source file:   CMSIS\RTOS2\RTX\Source\rtx_lib.c
-      Source file:   CMSIS\RTOS2\RTX\Config\RTX_Config.c
-      Source file:   CMSIS\RTOS2\RTX\Template\Events.c
-      Include file:  CMSIS\RTOS2\RTX\Config\RTX_Config.h
       Source file:   CMSIS\RTOS2\RTX\Template\MsgQueue.c
-      Library file:  CMSIS\RTOS2\RTX\Library\ARM\RTX_CM0.lib
+      Source file:   CMSIS\RTOS2\RTX\Template\svc_user.c
+      Source file:   CMSIS\RTOS2\RTX\Template\main.c
+      Source file:   CMSIS\RTOS2\RTX\Template\Events.c
       Source file:   CMSIS\RTOS2\RTX\Template\Semaphore.c
-      Source file:   CMSIS\RTOS2\RTX\Template\Mutex.c
+      Library file:  CMSIS\RTOS2\RTX\Library\ARM\RTX_CM0.lib
+      Source file:   CMSIS\RTOS2\RTX\Config\RTX_Config.c
+      Include file:  CMSIS\RTOS2\RTX\Config\RTX_Config.h
 
    * Component: Keil::Device:Startup:2.5.0
+      Source file:   Device\Source\ARM\startup_MKL25Z4.s
       Source file:   Device\Source\system_MKL25Z4.c
       Include file:  Device\Source\system_MKL25Z4.h
-      Source file:   Device\Source\ARM\startup_MKL25Z4.s
+Target not created.
 Build Time Elapsed:  00:00:01
 </pre>
 </body>
