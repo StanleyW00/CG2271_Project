@@ -12,46 +12,39 @@
 #include "colorHandler.h"
 #include "buzzer.h"
 
-osThreadId_t tIdMovingGreen;
-osThreadId_t tIdStationGreen;
-osThreadId_t tIdMovingRed;
-osThreadId_t tIdStationRed;
-
+osEventFlagsId_t movingGreenFlag;
+osEventFlagsId_t movingRedFlag;
+osEventFlagsId_t stationGreenFlag;
+osEventFlagsId_t stationRedFlag;
 
 /*----------------------------------------------------------------------------
  * Application main thread
  *---------------------------------------------------------------------------*/
  
+void motorMovingFlagsSet() {
+  osEventFlagsSet(movingGreenFlag, 0x0001);
+  osEventFlagsSet(movingRedFlag, 0x0001);
+  osEventFlagsClear(stationGreenFlag,0x0001);
+  osEventFlagsClear(stationRedFlag,0x0001);
+}
+
+void motorStopFlagsSet() {
+  osEventFlagsSet(stationGreenFlag, 0x0001);
+  osEventFlagsSet(stationRedFlag, 0x0001);
+  osEventFlagsClear(movingGreenFlag,0x0001);
+  osEventFlagsClear(movingRedFlag,0x0001);
+}
+
 void motorThread (void *argument) {
- 
-  // ...
   for (;;) {
-		moveForward();
-		osDelay(1000);
-		stopMotors();
-		osDelay(1000);
-	}
+    moveForward();
+    motorMovingFlagsSet();
+    osDelay(2000);
+    stopMotors();
+    motorStopFlagsSet();
+    osDelay(2000);
+  }
 }
-
-void buzzerThread (void *argument) {
-	 for (;;) {
-		changeBuzzerFrequency(262);
-		osDelay(1000);
-		changeBuzzerFrequency(294);
-		osDelay(1000);
-		changeBuzzerFrequency(330);
-		osDelay(1000);	
-		changeBuzzerFrequency(349);
-		osDelay(1000);		
-		changeBuzzerFrequency(392);
-		osDelay(1000);
-		changeBuzzerFrequency(440);
-		osDelay(1000);
-		changeBuzzerFrequency(494);
-		osDelay(1000);
-	 }
-}
-
 
 
 static void delay(volatile uint32_t nof) {
@@ -63,33 +56,32 @@ static void delay(volatile uint32_t nof) {
 
 void movingGreenLED (void *argument) {
   for (;;) {
-    osThreadFlagsWait(0x0001, osFlagsNoClear, osWaitForever);
+    osEventFlagsWait(movingGreenFlag, 0x0001, osFlagsNoClear, osWaitForever);
 		startMovingGreen();
 	}
 }
 
 void stationGreenLED (void *argument) {
-  osThreadFlagsSet(tIdStationGreen, 0x0001);
 	 for (;;) {
-    osThreadFlagsWait(0x0001, osFlagsNoClear, osWaitForever);
+    osEventFlagsWait(stationGreenFlag, 0x0001, osFlagsNoClear, osWaitForever);
 		startStationGreen();
 	}
 }
 
 void movingRedLED (void *argument) {
 	 for (;;) {
-    osThreadFlagsWait(0x0001, osFlagsNoClear, osWaitForever);
+    osEventFlagsWait(movingRedFlag, 0x0001, osFlagsNoClear, osWaitForever);
 		startSlowFlashRed();
 	}
 }
 
 void stationRedLED (void *argument) {
-  osThreadFlagsSet(tIdStationRed, 0x0001);
 	for (;;) {
-    osThreadFlagsWait(0x0001, osFlagsNoClear, osWaitForever);
+    osEventFlagsWait(stationRedFlag, 0x0001, osFlagsNoClear, osWaitForever);
 		startFastFlashRed();
 	}
 }
+
 
 int main (void) {
 	
@@ -111,12 +103,18 @@ int main (void) {
 	*/
 	
   osKernelInitialize();                 // Initialize CMSIS-RTOS
-  //osThreadNew(motorThread, NULL, NULL);    // Create application main thread
-	osThreadNew(buzzerThread, NULL, NULL);
-	//tIdMovingGreen = osThreadNew(movingGreenLED, NULL, NULL);
-  //tIdMovingRed = osThreadNew(movingRedLED, NULL, NULL);
-  //tIdStationRed = osThreadNew(stationRedLED, NULL, NULL);
-  //tIdStationGreen = osThreadNew(stationGreenLED, NULL, NULL);
+	
+	// Creating the led event flags
+  movingGreenFlag = osEventFlagsNew(NULL);
+  movingRedFlag = osEventFlagsNew(NULL);
+  stationGreenFlag = osEventFlagsNew(NULL);
+  stationRedFlag = osEventFlagsNew(NULL);
+	
+  osThreadNew(motorThread, NULL, NULL);    // Create application main thread
+	osThreadNew(movingGreenLED, NULL, NULL);
+  osThreadNew(movingRedLED, NULL, NULL);
+  osThreadNew(stationGreenLED, NULL, NULL);
+  osThreadNew(stationRedLED, NULL, NULL);
   osKernelStart();                      // Start thread execution
 	
   for (;;) {}
