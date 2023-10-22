@@ -7,3 +7,4 @@ void rotateLeft(void);
 void rotateRight(void);
 void forwardLeft(void);
 void forwardRight(void);
+void moveBackward(void);
