@@ -3,3 +3,7 @@
 
 void stopMotors(void);
 void moveForward(void);
+void rotateLeft(void);
+void rotateRight(void);
+void forwardLeft(void);
+void forwardRight(void);
