@@ -38,7 +38,7 @@ void initUART1(uint32_t baud_rate) {
 	
 	NVIC_SetPriority(UART1_IRQn, 128);
 	NVIC_ClearPendingIRQ(UART1_IRQn);
-	NVIC_EnableIRQ(UART2_IRQn);
+	NVIC_EnableIRQ(UART1_IRQn);
 	
 	UART1->C2 |= ((UART_C2_TE_MASK) | (UART_C2_RE_MASK));
 	Q_Init(&tx_q);
