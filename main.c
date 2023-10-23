@@ -23,6 +23,11 @@ int volatile modValue2 = 7500;
 int volatile cnvValue1 = 3000;
 int volatile cnvValue2 = 3000;
 
+osMutexId_t myBuzzerMutex;
+
+const osThreadAttr_t thread_attr = {
+	.priority = osPriorityNormal1
+};
 
 /*----------------------------------------------------------------------------
  * Application main thread
@@ -92,6 +97,41 @@ void changeFrequency(int frequency) {
 	TPM0_C1V = cnvValue;
 }
 
+void controlEndBuzzer(void *argument) {
+		// end music - rickroll
+	
+	osMutexAcquire(myBuzzerMutex, osWaitForever);
+	osDelay(1000);
+	for (;;) {
+		changeFrequency(784); // f
+		osDelay(1000);
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(0);
+		osDelay(10);
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(988); // a
+		osDelay(1000);
+		
+		changeFrequency(1760); // g 1 octave
+		osDelay(250);
+		changeFrequency(1567); // f
+		osDelay(250);
+		changeFrequency(1482); // e
+		osDelay(500);
+		
+		changeFrequency(784); // f
+		osDelay(1000);
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(0);
+		osDelay(10);
+		changeFrequency(880); // g
+		osDelay(2000);
+	}
+}
+
 void controlBuzzer(void *argument) {
 	
 	/*
@@ -113,28 +153,9 @@ void controlBuzzer(void *argument) {
 	 }
 	*/
 	
-	/*
-	for (;;) {
-		changeFrequency(1482); // e
-		osDelay(2000);
-		changeFrequency(1321); // d
-		osDelay(1000);
-		changeFrequency(1976); // a
-		osDelay(3000);
-		changeFrequency(1482); // e
-		osDelay(1000);
-		changeFrequency(1321); // d
-		osDelay(1000);
-		changeFrequency(1760); // g
-		osDelay(2000);
-		changeFrequency(1567); // f
-		osDelay(1000);
-		changeFrequency(1482); // e
-		osDelay(3000);
-	}
-	*/
-	
-	//run mode
+	osMutexAcquire(myBuzzerMutex, osWaitForever); //somewhere it will release?
+	osDelay(1000);
+	//run mode - danny Minecraft
 	for (;;) {
 		changeFrequency(880); // g
 		osDelay(1000);
@@ -163,6 +184,40 @@ void controlBuzzer(void *argument) {
 		changeFrequency(880); // g
 		osDelay(4000);
 	}
+	
+	
+	/*
+	// end music - rickroll
+	osDelay(1000);
+	for (;;) {
+		changeFrequency(784); // f
+		osDelay(1000);
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(0);
+		osDelay(10);
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(988); // a
+		osDelay(1000);
+		
+		changeFrequency(1760); // g 1 octave
+		osDelay(250);
+		changeFrequency(1567); // f
+		osDelay(250);
+		changeFrequency(1482); // e
+		osDelay(500);
+		
+		changeFrequency(784); // f
+		osDelay(1000);
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(0);
+		osDelay(10);
+		changeFrequency(880); // g
+		osDelay(2000);
+	}
+	*/
 }
 
 int main (void) {
@@ -175,7 +230,9 @@ int main (void) {
 	TPM0_C1V = 0;
  
   osKernelInitialize();                 // Initialize CMSIS-RTOS
-  osThreadNew(controlBuzzer, NULL, NULL);    // Create application main thread
+	myBuzzerMutex = osMutexNew(NULL);
+  osThreadNew(controlBuzzer, NULL, &thread_attr);    // Create application main thread
+	osThreadNew(controlEndBuzzer, NULL, NULL);
   osKernelStart();                      // Start thread execution
   for (;;) {}
 }
