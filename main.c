@@ -132,10 +132,8 @@ void controlEndBuzzer(void *argument) {
 	}
 }
 
-void controlBuzzer(void *argument) {
-	
 	/*
-	 for (;;) {
+	 As reference, remember to times 1.1225 to the frequency every use
 		changeFrequency(524); // c
 		osDelay(1000);
 		changeFrequency(588); // d
@@ -150,8 +148,10 @@ void controlBuzzer(void *argument) {
 		osDelay(1000);
 		changeFrequency(988); // b
 		osDelay(1000);
-	 }
+	 
 	*/
+
+void controlBuzzer(void *argument) {
 	
 	osMutexAcquire(myBuzzerMutex, osWaitForever); //somewhere it will release?
 	osDelay(1000);
