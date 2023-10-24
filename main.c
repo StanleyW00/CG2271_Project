@@ -18,11 +18,11 @@ void initUART1(uint32_t baud_rate) {
 	SIM->SCGC4 |= SIM_SCGC4_UART2_MASK;
 	SIM->SCGC5 |= SIM_SCGC5_PORTA_MASK;
 	
-	PORTA->PCR[18] &= ~PORT_PCR_MUX_MASK;
-	PORTA->PCR[18] |= PORT_PCR_MUX(3);
+	PORTE->PCR[0] &= ~PORT_PCR_MUX_MASK;
+	PORTE->PCR[0] |= PORT_PCR_MUX(3);
 	
-	PORTA->PCR[19] &= ~PORT_PCR_MUX_MASK;
-	PORTA->PCR[19] |= PORT_PCR_MUX(3);
+	PORTE->PCR[1] &= ~PORT_PCR_MUX_MASK;
+	PORTE->PCR[1] |= PORT_PCR_MUX(3);
 	
 	
 	UART1->C2 &= ~((UART_C2_TE_MASK) | (UART_C2_RE_MASK));
@@ -77,7 +77,7 @@ void commandHandler(Q_T *q) {
 	else if ((cmd & 0x20) == 0x20) {
 		// end race
 	} 
-	else if ((cmd | 0xcf) == 0xaf) {
+	else if ((cmd | 0xcf) == 0xcf) {
 		// music off
 	}
 	
