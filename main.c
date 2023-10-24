@@ -231,9 +231,9 @@ int main (void) {
  
   osKernelInitialize();                 // Initialize CMSIS-RTOS
 	myBuzzerMutex = osMutexNew(NULL);
-  //osThreadNew(controlBuzzer, NULL, &thread_attr);    // Create application main thread
+  osThreadNew(controlBuzzer, NULL, &thread_attr);    // Create application main thread
 	//osThreadNew(controlEndBuzzer, NULL, NULL);
-	//osThreadNew(movingGreenLED, NULL, NULL);
+	osThreadNew(movingGreenLED, NULL, NULL);
 	osThreadNew(movingRedLED, NULL, NULL);
   osKernelStart();                      // Start thread execution
   for (;;) {}
