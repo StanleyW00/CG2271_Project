@@ -74,19 +74,19 @@ void commandHandler(Q_T *q) {
 	if ((cmd & 0x02) == 0x02) {
 		// forward
 	}
-	else if ((cmd & 0x01 == 0x01) {
+	else if ((cmd & 0x01) == 0x01) {
 		// backward
 	}
-	else if ((cmd & 0x08 == 0x08) {
+	else if ((cmd & 0x08) == 0x08) {
 		// left
 	}
-	else if ((cmd & 0x04 == 0x04) {
+	else if ((cmd & 0x04) == 0x04) {
 		// right
 	}
-	else if ((cmd & 0x0a == 0x0a) {
+	else if ((cmd & 0x0a) == 0x0a) {
 		// forward left
 	}
-	else if ((cmd & 0x06 == 0x06) {
+	else if ((cmd & 0x06) == 0x06) {
 		// forward right
 	}
 }
