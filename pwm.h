@@ -5,4 +5,4 @@
 void initPWM(void);
 void stopMotors(void);
 void moveForward(void);
-void changeFrequency(int frequency, int timer, int channel);
+void changeMotorFrequency(int frequency, int timer, int channel);

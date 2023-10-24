@@ -12,10 +12,16 @@
 #include "colorHandler.h"
 #include "buzzer.h"
 
+osMutexId_t myBuzzerMutex;
+
 osEventFlagsId_t movingGreenFlag;
 osEventFlagsId_t movingRedFlag;
 osEventFlagsId_t stationGreenFlag;
 osEventFlagsId_t stationRedFlag;
+
+const osThreadAttr_t thread_attr = {
+	.priority = osPriorityNormal1
+};
 
 /*----------------------------------------------------------------------------
  * Application main thread
@@ -38,6 +44,7 @@ void motorStopFlagsSet() {
 void motorThread (void *argument) {
   for (;;) {
     moveForward();
+		//moveBackward();
     motorMovingFlagsSet();
     osDelay(2000);
     stopMotors();
@@ -90,19 +97,9 @@ int main (void) {
   // ...
 	initPWM();
 	initGPIOLED();
-	initBuzzerPWM();
-	
-	TPM1_C0V = 3750;
-	/*
-	TPM1_C0V = 3750;
-	TPM1_C1V = 3750;
-	TPM2_C0V = 3750;
-	TPM2_C1V = 3750;
-	
-	delay(0xffffff);
-	*/
 	
   osKernelInitialize();                 // Initialize CMSIS-RTOS
+	
 	
 	// Creating the led event flags
   movingGreenFlag = osEventFlagsNew(NULL);
@@ -115,6 +112,7 @@ int main (void) {
   osThreadNew(movingRedLED, NULL, NULL);
   osThreadNew(stationGreenLED, NULL, NULL);
   osThreadNew(stationRedLED, NULL, NULL);
+	//osThreadNew(controlBuzzer, NULL, &thread_attr);    // Create application main thread
   osKernelStart();                      // Start thread execution
 	
   for (;;) {}

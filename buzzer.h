@@ -5,4 +5,4 @@
 void initBuzzerPWM(void);
 void calculateModValue(int frequency);
 void calculateCnvValue();
-void changeBuzzerFrequency(int frequency);
+void changeFrequency(int frequency);

@@ -32,6 +32,7 @@ int volatile cnvValue2 = 3000;
 void initPWM() {
 	// Enable clock for PORTB
 	SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK;
+	SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;
 	
 	// Configure MUX settings
 	//PORTB->PCR[PTB0_Pin] &= ~PORT_PCR_MUX_MASK;
@@ -91,11 +92,13 @@ void initPWM() {
 	TPM0_C2SC &= ~((TPM_CnSC_ELSB_MASK) | (TPM_CnSC_ELSA_MASK) | (TPM_CnSC_MSB_MASK) | (TPM_CnSC_MSA_MASK));
 	TPM0_C2SC |= (TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1));
 	
+	/*
 	TPM0_C3SC &= ~((TPM_CnSC_ELSB_MASK) | (TPM_CnSC_ELSA_MASK) | (TPM_CnSC_MSB_MASK) | (TPM_CnSC_MSA_MASK));
 	TPM0_C3SC |= (TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1));
 	
 	TPM0_C4SC &= ~((TPM_CnSC_ELSB_MASK) | (TPM_CnSC_ELSA_MASK) | (TPM_CnSC_MSB_MASK) | (TPM_CnSC_MSA_MASK));
 	TPM0_C4SC |= (TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1));
+	*/
 	
 	//TPM1_C0SC &= ~((TPM_CnSC_ELSB_MASK) | (TPM_CnSC_ELSA_MASK) | (TPM_CnSC_MSB_MASK) | (TPM_CnSC_MSA_MASK));
 	//TPM1_C0SC |= (TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1));
@@ -110,7 +113,7 @@ void initPWM() {
 	TPM2_C1SC |= (TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1));
 }
 
-void changeFrequency(int frequency, int timer, int channel) {
+void changeMotorFrequency(int frequency, int timer, int channel) {
 	int mod_val = 375000 / frequency;
 	int cnv_val = mod_val / DUTY_CYCLE;
 	
