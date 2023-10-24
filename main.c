@@ -60,24 +60,24 @@ void stationRedLED (void *argument) {
 
 
 void initBuzzerPWM(void) {
-	SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;
+	SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK;
 	
-	PORTC->PCR[2] &= ~PORT_PCR_MUX_MASK;
-	PORTC->PCR[2] |= PORT_PCR_MUX(4);
+	PORTB->PCR[0] &= ~PORT_PCR_MUX_MASK;
+	PORTB->PCR[0] |= PORT_PCR_MUX(3);
 	
-	SIM->SCGC6 |= SIM_SCGC6_TPM0_MASK;
+	SIM->SCGC6 |= SIM_SCGC6_TPM1_MASK;
 	
 	SIM->SOPT2 &= ~SIM_SOPT2_TPMSRC_MASK;
 	SIM->SOPT2 |= SIM_SOPT2_TPMSRC(1);
 	
-	TPM0->MOD = 7500;
+	TPM1->MOD = 7500;
 	
-	TPM0->SC &= ~((TPM_SC_CMOD_MASK) | (TPM_SC_PS_MASK));
-	TPM0->SC |= (TPM_SC_CMOD(1) | TPM_SC_PS(7));
-	TPM0->SC &= ~(TPM_SC_CPWMS_MASK);
+	TPM1->SC &= ~((TPM_SC_CMOD_MASK) | (TPM_SC_PS_MASK));
+	TPM1->SC |= (TPM_SC_CMOD(1) | TPM_SC_PS(7));
+	TPM1->SC &= ~(TPM_SC_CPWMS_MASK);
 	
-	TPM0_C1SC &= ~((TPM_CnSC_ELSB_MASK) | (TPM_CnSC_ELSA_MASK) | (TPM_CnSC_MSB_MASK) | (TPM_CnSC_MSA_MASK));
-	TPM0_C1SC |= (TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1));
+	TPM1_C0SC &= ~((TPM_CnSC_ELSB_MASK) | (TPM_CnSC_ELSA_MASK) | (TPM_CnSC_MSB_MASK) | (TPM_CnSC_MSA_MASK));
+	TPM1_C0SC |= (TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1));
 }
 
 
@@ -93,8 +93,8 @@ void calculateCnvValue() {
 void changeFrequency(int frequency) {
 	calculateModValue(frequency);
 	calculateCnvValue();
-	TPM0->MOD = modValue;
-	TPM0_C1V = cnvValue;
+	TPM1->MOD = modValue;
+	TPM1_C0V = cnvValue;
 }
 
 void controlEndBuzzer(void *argument) {
@@ -115,11 +115,11 @@ void controlEndBuzzer(void *argument) {
 		osDelay(1000);
 		
 		changeFrequency(1760); // g 1 octave
-		osDelay(250);
+		osDelay(100);
 		changeFrequency(1567); // f
-		osDelay(250);
+		osDelay(100);
 		changeFrequency(1482); // e
-		osDelay(500);
+		osDelay(250);
 		
 		changeFrequency(784); // f
 		osDelay(1000);
@@ -128,7 +128,7 @@ void controlEndBuzzer(void *argument) {
 		changeFrequency(0);
 		osDelay(10);
 		changeFrequency(880); // g
-		osDelay(2000);
+		osDelay(1500);
 	}
 }
 
@@ -224,15 +224,17 @@ int main (void) {
  
   // System Initialization
   SystemCoreClockUpdate();
-  //initGPIOLED();
+  initGPIOLED();
 	initBuzzerPWM();
 	
-	TPM0_C1V = 0;
+	TPM1_C0V = 0;
  
   osKernelInitialize();                 // Initialize CMSIS-RTOS
 	myBuzzerMutex = osMutexNew(NULL);
-  osThreadNew(controlBuzzer, NULL, &thread_attr);    // Create application main thread
-	osThreadNew(controlEndBuzzer, NULL, NULL);
+  //osThreadNew(controlBuzzer, NULL, &thread_attr);    // Create application main thread
+	//osThreadNew(controlEndBuzzer, NULL, NULL);
+	//osThreadNew(movingGreenLED, NULL, NULL);
+	osThreadNew(movingRedLED, NULL, NULL);
   osKernelStart();                      // Start thread execution
   for (;;) {}
 }

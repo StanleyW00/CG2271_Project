@@ -73,15 +73,15 @@ void startStationGreen(void) {
 }
 
 void startSlowFlashRed(void) {
-		PTE->PDDR |= MASK(0) | MASK(1) | MASK(2) | MASK(3) | MASK(4) | MASK(5) | MASK (20) | MASK(21);
+		PTE->PDOR |= MASK(0) | MASK(1) | MASK(2) | MASK(3) | MASK(4) | MASK(5) | MASK (20) | MASK(21);
 		osDelay(500);
-		PTE->PDDR = 0;
+		PTE->PDOR = 0;
 		osDelay(500);
 }
 
 void startFastFlashRed(void) {
-		PTE->PDDR |= MASK(0) | MASK(1) | MASK(2) | MASK(3) | MASK(4) | MASK(5) | MASK (20) | MASK(21);
+		PTE->PDOR |= MASK(0) | MASK(1) | MASK(2) | MASK(3) | MASK(4) | MASK(5) | MASK (20) | MASK(21);
 		osDelay(250);
-		PTE->PDDR = 0;
+		PTE->PDOR = 0;
 		osDelay(250);
 }
