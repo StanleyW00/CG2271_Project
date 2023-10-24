@@ -70,9 +70,23 @@ void UART1_IRQHandler(void) {
 
 void commandHandler(Q_T *q) {
 	unsigned char cmd = Q_Dequeue(q);
-	//buzzer(cmd)
-	if ((cmd & 0x02) == 0x02) {
-		// forward
+	//buzzer commands
+	if ((cmd & 0x10) == 0x10) {
+		// music on
+	} 
+	else if ((cmd & 0x20) == 0x20) {
+		// end race
+	} 
+	else if ((cmd | 0xcf) == 0xaf) {
+		// music off
+	}
+	
+	//motor commands
+	if ((cmd & 0x0a) == 0x0a) {
+		// forward left
+	}
+	else if ((cmd & 0x06) == 0x06) {
+		// forward right
 	}
 	else if ((cmd & 0x01) == 0x01) {
 		// backward
@@ -82,12 +96,9 @@ void commandHandler(Q_T *q) {
 	}
 	else if ((cmd & 0x04) == 0x04) {
 		// right
-	}
-	else if ((cmd & 0x0a) == 0x0a) {
-		// forward left
-	}
-	else if ((cmd & 0x06) == 0x06) {
-		// forward right
+	} 
+	else if ((cmd & 0x02) == 0x02) {
+		// forward
 	}
 }
 
