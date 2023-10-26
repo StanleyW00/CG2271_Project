@@ -17,3 +17,5 @@
 .\objects\main.o: colorHandler.h
 .\objects\main.o: buzzer.h
 .\objects\main.o: C:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h
+.\objects\main.o: serial.h
+.\objects\main.o: C:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h

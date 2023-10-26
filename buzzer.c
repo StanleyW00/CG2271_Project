@@ -92,12 +92,11 @@ void runningBuzzer() {
 		changeFrequency(1320); // d
 		osDelay(1000);
 		changeFrequency(880); // g
-		osDelay(4000);
+		osDelay(1000);
 }
 
 void endBuzzer() {
 		osDelay(1000);
-	for (;;) {
 		changeFrequency(784); // f
 		osDelay(1000);
 		changeFrequency(880); // g
@@ -124,5 +123,4 @@ void endBuzzer() {
 		osDelay(10);
 		changeFrequency(880); // g
 		osDelay(1500);
-	}
 }

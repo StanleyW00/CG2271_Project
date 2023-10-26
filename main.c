@@ -11,13 +11,19 @@
 #include "motor_handler.h"
 #include "colorHandler.h"
 #include "buzzer.h"
+#include "serial.h"
 
-osMutexId_t myBuzzerMutex;
+#define MASK(x) (1 << (x))
+#define BLUE_LED 1 // PortD Pin 1
 
 osEventFlagsId_t movingGreenFlag;
 osEventFlagsId_t movingRedFlag;
 osEventFlagsId_t stationGreenFlag;
 osEventFlagsId_t stationRedFlag;
+osEventFlagsId_t buzzerEndFlag;
+osEventFlagsId_t buzzerRunFlag;
+
+osMutexId_t myMutex;
 
 const osThreadAttr_t thread_attr = {
 	.priority = osPriorityNormal1
@@ -26,40 +32,48 @@ const osThreadAttr_t thread_attr = {
 /*----------------------------------------------------------------------------
  * Application main thread
  *---------------------------------------------------------------------------*/
+
+volatile uint8_t receivedData;
  
 void motorMovingFlagsSet() {
   osEventFlagsSet(movingGreenFlag, 0x0001);
   osEventFlagsSet(movingRedFlag, 0x0001);
-  osEventFlagsClear(stationGreenFlag,0x0001);
-  osEventFlagsClear(stationRedFlag,0x0001);
+	osEventFlagsSet(buzzerRunFlag, 0x0001);
+  osEventFlagsClear(stationGreenFlag, 0x0001);
+  osEventFlagsClear(stationRedFlag, 0x0001);
 }
 
 void motorStopFlagsSet() {
   osEventFlagsSet(stationGreenFlag, 0x0001);
   osEventFlagsSet(stationRedFlag, 0x0001);
-  osEventFlagsClear(movingGreenFlag,0x0001);
-  osEventFlagsClear(movingRedFlag,0x0001);
+	osEventFlagsSet(buzzerEndFlag, 0x0001);
+  osEventFlagsClear(movingGreenFlag, 0x0001);
+  osEventFlagsClear(movingRedFlag, 0x0001);
+	osEventFlagsClear(buzzerRunFlag, 0x0001);
 }
 
-void motorThread (void *argument) {
-  for (;;) {
-    moveForward();
-		moveBackward();
-    motorMovingFlagsSet();
-    osDelay(2000);
-    stopMotors();
-    motorStopFlagsSet();
-		TPM1_C0V = 0;
-    osDelay(2000);
-  }
+void UART2_IRQHandler(void)
+{
+	NVIC_ClearPendingIRQ(UART2_IRQn);
+	// copy what is in register to data when register is full
+	if (UART2->S1 & UART_S1_RDRF_MASK)
+	{
+		receivedData = UART2->D;
+		osMutexRelease(myMutex);
+	}
+
+	PORTE->ISFR = 0xffffffff;
 }
 
-
-static void delay(volatile uint32_t nof) {
-  while(nof!=0) {
-    __asm("NOP");
-    nof--;
-  }
+void main_loop (void *argument) {
+	for (;;) {
+		osMutexAcquire(myMutex, osWaitForever);
+		if (receivedData == 0x02) {
+			PTD->PDOR &= ~MASK(BLUE_LED); 
+		} else {
+			PTD->PDOR |= MASK(BLUE_LED);
+		}
+	}
 }
 
 void movingGreenLED (void *argument) {
@@ -90,9 +104,19 @@ void stationRedLED (void *argument) {
 	}
 }
 
+
 void controlBuzzer (void *argument) {
 	for (;;) {
+		osEventFlagsWait(buzzerRunFlag, 0x0001, osFlagsNoClear, osWaitForever);
 		runningBuzzer();
+	}
+}
+
+
+void finishBuzzer (void *argument) {
+	for (;;) {
+		osEventFlagsWait(buzzerEndFlag, 0x0001, osFlagsNoClear, osWaitForever);
+		endBuzzer();
 	}
 }
 
@@ -100,27 +124,30 @@ int main (void) {
 	
   // System Initialization
   SystemCoreClockUpdate();
-  // ...
+
 	initPWM();
 	initGPIOLED();
 	initBuzzerPWM();
+	initSerial();
 	
   osKernelInitialize();                 // Initialize CMSIS-RTOS
-	
 	
 	// Creating the led event flags
   movingGreenFlag = osEventFlagsNew(NULL);
   movingRedFlag = osEventFlagsNew(NULL);
   stationGreenFlag = osEventFlagsNew(NULL);
   stationRedFlag = osEventFlagsNew(NULL);
+	buzzerRunFlag = osEventFlagsNew(NULL);
+	buzzerEndFlag = osEventFlagsNew(NULL);
 	
-
-  osThreadNew(motorThread, NULL, NULL);    // Create application main thread
-	osThreadNew(movingGreenLED, NULL, NULL);
-  osThreadNew(movingRedLED, NULL, NULL);
-  osThreadNew(stationGreenLED, NULL, NULL);
-  osThreadNew(stationRedLED, NULL, NULL);
-	osThreadNew(controlBuzzer, NULL, &thread_attr);    // Create application main thread
+	myMutex = osMutexNew(NULL);
+  osThreadNew(main_loop, NULL, &thread_attr);    // Create application main thread
+	//osThreadNew(movingGreenLED, NULL, NULL);
+  //osThreadNew(movingRedLED, NULL, NULL);
+  //osThreadNew(stationGreenLED, NULL, NULL);
+  //osThreadNew(stationRedLED, NULL, NULL);
+	//osThreadNew(controlBuzzer, NULL, NULL);    // Create application main thread
+	//osThreadNew(finishBuzzer, NULL, NULL);
   osKernelStart();                      // Start thread execution
 	
   for (;;) {}

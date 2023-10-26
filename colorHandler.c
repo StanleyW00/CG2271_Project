@@ -44,10 +44,10 @@ void initGPIOLED(void) {
 		PORTE->PCR[22] &= ~PORT_PCR_MUX_MASK;
 		PORTE->PCR[22] |= PORT_PCR_MUX(1);
 		PORTE->PCR[23] &= ~PORT_PCR_MUX_MASK;
-		PORTE->PCR[23] |= PORT_PCR_MUX(1);
+		PORTE->PCR[29] |= PORT_PCR_MUX(1);
 	
 		PTD->PDDR |= MASK(0) | MASK(1) | MASK(2) | MASK(3) | MASK(4) | MASK(5) | MASK (6) | MASK(7);
-		PTE->PDDR |= MASK(2) | MASK(3) | MASK(4) | MASK(5) | MASK (20) | MASK(21) | MASK (22) | MASK(23);
+		PTE->PDDR |= MASK(2) | MASK(3) | MASK(4) | MASK(5) | MASK (20) | MASK(21) | MASK (22) | MASK(29);
 }
 
 void startMovingGreen(void) {
@@ -74,14 +74,14 @@ void startStationGreen(void) {
 }
 
 void startSlowFlashRed(void) {
-		PTE->PDOR |= MASK(2) | MASK(3) | MASK(4) | MASK(5) | MASK (20) | MASK(21) | MASK (22) | MASK(23);
+		PTE->PDOR |= MASK(2) | MASK(3) | MASK(4) | MASK(5) | MASK (20) | MASK(21) | MASK (22) | MASK(29);
 		osDelay(500);
 		PTE->PDOR = 0;
 		osDelay(500);
 }
 
 void startFastFlashRed(void) {
-		PTE->PDOR |= MASK(2) | MASK(3) | MASK(4) | MASK(5) | MASK (20) | MASK(21) | MASK (22) | MASK(23);
+		PTE->PDOR |= MASK(2) | MASK(3) | MASK(4) | MASK(5) | MASK (20) | MASK(21) | MASK (22) | MASK(29);
 		osDelay(250);
 		PTE->PDOR = 0;
 		osDelay(250);
