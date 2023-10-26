@@ -4,6 +4,7 @@
 ".\objects\motor_control.o"
 ".\objects\colorhandler.o"
 ".\objects\buzzer.o"
+".\objects\uart.o"
 "C:\Users\ella ys\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\Library\ARM\RTX_CM0.lib"
 ".\objects\rtx_lib.o"
 ".\objects\rtx_config.o"

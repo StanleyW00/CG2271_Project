@@ -36,7 +36,7 @@ void calculateModValue(int frequency) {
 
 void calculateCnvValue() {
 	// dutyCycle
-	cnvValue = modValue / 2;
+	cnvValue = modValue / 16;
 }
 
 void changeFrequency(int frequency) {
@@ -44,4 +44,65 @@ void changeFrequency(int frequency) {
 	calculateCnvValue();
 	TPM1->MOD = modValue;
 	TPM1_C0V = cnvValue;
+}
+
+void runningBuzzer() {
+		osDelay(1000);
+	//run mode - danny Minecraft
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(988); // a
+		osDelay(1000);
+		changeFrequency(1109); // b
+		osDelay(1000);
+		changeFrequency(1176); // c
+		osDelay(1000);
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(988); // a
+		osDelay(1000);
+		changeFrequency(1109); // b
+		osDelay(1000);
+		changeFrequency(1320); // d
+		osDelay(1000);
+		changeFrequency(1176); // c
+		osDelay(1000);
+		changeFrequency(1109); // b
+		osDelay(1000);
+		changeFrequency(1176); // c
+		osDelay(1000);
+		changeFrequency(1320); // d
+		osDelay(1000);
+		changeFrequency(880); // g
+		osDelay(4000);
+}
+
+void endBuzzer() {
+		osDelay(1000);
+		changeFrequency(784); // f
+		osDelay(1000);
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(0);
+		osDelay(10);
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(988); // a
+		osDelay(1000);
+		
+		changeFrequency(1760); // g 1 octave
+		osDelay(100);
+		changeFrequency(1567); // f
+		osDelay(100);
+		changeFrequency(1482); // e
+		osDelay(250);
+		
+		changeFrequency(784); // f
+		osDelay(1000);
+		changeFrequency(880); // g
+		osDelay(1000);
+		changeFrequency(0);
+		osDelay(10);
+		changeFrequency(880); // g
+		osDelay(1500);
 }
