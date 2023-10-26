@@ -1,6 +1,6 @@
 Dependencies for Project 'myProject', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
-F (.\main.c)(0x65373AA6)(--c99 --gnu -c --cpu Cortex-M0+ -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections-I.\RTE\CMSIS-I.\RTE\Device\MKL25Z128xxx4-I.\RTE\_Target_1-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DMKL25Z128xxx4-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x653A0E99)(--c99 --gnu -c --cpu Cortex-M0+ -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections-I.\RTE\CMSIS-I.\RTE\Device\MKL25Z128xxx4-I.\RTE\_Target_1-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DMKL25Z128xxx4-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\RTE\_Target_1\RTE_Components.h)(0x652E0273)
 I (C:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585B7C0A)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9AD218)
@@ -11,9 +11,12 @@ I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cms
 I (.\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x56441C9A)
 I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include\cmsis_os2.h)(0x5C8F1798)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9AD218)
+I (pwm.h)(0x6539DF64)
+I (motor_handler.h)(0x6539DF64)
 I (colorHandler.h)(0x6536708B)
+I (buzzer.h)(0x6539DF8D)
 F (.\colorHandler.h)(0x6536708B)()
-F (.\colorHandler.c)(0x65373D5E)(--c99 --gnu -c --cpu Cortex-M0+ -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections-I.\RTE\CMSIS-I.\RTE\Device\MKL25Z128xxx4-I.\RTE\_Target_1-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DMKL25Z128xxx4-o .\objects\colorhandler.o --omf_browse .\objects\colorhandler.crf --depend .\objects\colorhandler.d)
+F (.\colorHandler.c)(0x653A0A72)(--c99 --gnu -c --cpu Cortex-M0+ -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections-I.\RTE\CMSIS-I.\RTE\Device\MKL25Z128xxx4-I.\RTE\_Target_1-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DMKL25Z128xxx4-o .\objects\colorhandler.o --omf_browse .\objects\colorhandler.crf --depend .\objects\colorhandler.d)
 I (C:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585B7C0A)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9AD218)
 I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm0plus.h)(0x5D2590B6)
@@ -25,6 +28,38 @@ I (colorHandler.h)(0x6536708B)
 I (.\RTE\_Target_1\RTE_Components.h)(0x652E0273)
 I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include\cmsis_os2.h)(0x5C8F1798)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9AD218)
+I (buzzer.h)(0x6539DF8D)
+F (.\buzzer.h)(0x6539DF8D)()
+F (.\buzzer.c)(0x653A0D2A)(--c99 --gnu -c --cpu Cortex-M0+ -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections-I.\RTE\CMSIS-I.\RTE\Device\MKL25Z128xxx4-I.\RTE\_Target_1-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DMKL25Z128xxx4-o .\objects\buzzer.o --omf_browse .\objects\buzzer.crf --depend .\objects\buzzer.d)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585B7C0A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9AD218)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm0plus.h)(0x5D2590B6)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D2590B6)
+I (.\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x56441C9A)
+I (.\RTE\_Target_1\RTE_Components.h)(0x652E0273)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include\cmsis_os2.h)(0x5C8F1798)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9AD218)
+F (.\motor_handler.h)(0x6539DF64)()
+F (.\motor_handler.c)(0x6539F190)(--c99 --gnu -c --cpu Cortex-M0+ -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections-I.\RTE\CMSIS-I.\RTE\Device\MKL25Z128xxx4-I.\RTE\_Target_1-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DMKL25Z128xxx4-o .\objects\motor_handler.o --omf_browse .\objects\motor_handler.crf --depend .\objects\motor_handler.d)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585B7C0A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9AD218)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm0plus.h)(0x5D2590B6)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D2590B6)
+I (.\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x56441C9A)
+F (.\pwm.h)(0x6539DF64)()
+F (.\pwm.c)(0x6539F0C9)(--c99 --gnu -c --cpu Cortex-M0+ -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections-I.\RTE\CMSIS-I.\RTE\Device\MKL25Z128xxx4-I.\RTE\_Target_1-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DMKL25Z128xxx4-o .\objects\pwm.o --omf_browse .\objects\pwm.crf --depend .\objects\pwm.d)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include\MKL25Z4.h)(0x585B7C0A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9AD218)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm0plus.h)(0x5D2590B6)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
+I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D2590B6)
+I (.\RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x56441C9A)
+I (pwm.h)(0x6539DF64)
 F (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\Library\ARM\RTX_CM0.lib)(0x5D2590B8)()
 F (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\Source\rtx_lib.c)(0x5D2590B8)(--c99 --gnu -c --cpu Cortex-M0+ -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections-I.\RTE\CMSIS-I.\RTE\Device\MKL25Z128xxx4-I.\RTE\_Target_1-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\Include-IC:\Users\wijay\AppData\Local\Arm\Packs\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DMKL25Z128xxx4-o .\objects\rtx_lib.o --omf_browse .\objects\rtx_lib.crf --depend .\objects\rtx_lib.d)
 I (C:\Users\wijay\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
