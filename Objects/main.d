@@ -9,5 +9,5 @@
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
   RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h \
   C:\Users\ella\ ys\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\Include\cmsis_os2.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h pwm.h motor_control.h \
-  colorHandler.h buzzer.h uart.h queue.h
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h uart.h motor_control.h \
+  colorHandler.h pwm.h

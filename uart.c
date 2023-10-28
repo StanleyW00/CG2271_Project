@@ -7,14 +7,11 @@
 /*----------------------------------------------------------------------------
  * Application main thread
  *---------------------------------------------------------------------------*/
-void initUART1(uint32_t baud_rate) {
+void InitUART1(uint32_t baud_rate) {
 	uint32_t divisor, bus_clock;
 	
 	SIM->SCGC4 |= SIM_SCGC4_UART1_MASK;
 	SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;
-	
-	PORTE->PCR[0] &= ~PORT_PCR_MUX_MASK;
-	PORTE->PCR[0] |= PORT_PCR_MUX(3);
 	
 	PORTE->PCR[1] &= ~PORT_PCR_MUX_MASK;
 	PORTE->PCR[1] |= PORT_PCR_MUX(3);
@@ -35,7 +32,5 @@ void initUART1(uint32_t baud_rate) {
 	NVIC_ClearPendingIRQ(UART1_IRQn);
 	NVIC_EnableIRQ(UART1_IRQn);
 	
-	UART1->C2 |= /*((UART_C2_TE_MASK) |*/ (UART_C2_RIE_MASK);
-	//Q_Init(&tx_q);
-	//Q_Init(&rx_q);
+	UART1->C2 |= (UART_C2_RE_MASK | UART_C2_RIE_MASK);
 }

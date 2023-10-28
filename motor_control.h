@@ -1,5 +1,6 @@
 #define MOTOR_CONTROL_H
-#include "MKL25Z4.h"                    // Device header
+
+#include "MKL25Z4.h"
 
 void stopMotors(void);
 void moveForward(void);

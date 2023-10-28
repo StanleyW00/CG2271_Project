@@ -3,4 +3,4 @@
 #include "MKL25Z4.h"                    // Device header
 
 
-void initUART1(uint32_t baud_rate);
+void InitUART1(uint32_t baud_rate);

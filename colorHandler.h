@@ -5,3 +5,4 @@ void startMovingGreen(void);
 void startStationGreen(void);
 void startSlowFlashRed(void);
 void startFastFlashRed(void);
+

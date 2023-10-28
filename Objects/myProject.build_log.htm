@@ -28,17 +28,17 @@ Project File Date:  10/26/2023
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 compiling main.c...
-assembling startup_MKL25Z4.s...
-compiling buzzer.c...
-compiling rtx_lib.c...
 compiling RTX_Config.c...
-compiling motor_control.c...
-compiling system_MKL25Z4.c...
 compiling uart.c...
+compiling system_MKL25Z4.c...
+assembling startup_MKL25Z4.s...
 compiling colorHandler.c...
+compiling rtx_lib.c...
+compiling motor_control.c...
+compiling buzzer.c...
 compiling pwm.c...
 linking...
-Program Size: Code=8256 RO-data=496 RW-data=168 ZI-data=5240  
+Program Size: Code=8132 RO-data=496 RW-data=168 ZI-data=5232  
 ".\Objects\myProject.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -75,25 +75,25 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:RTOS2:Keil RTX5:Library:5.5.1
       Include file:  CMSIS/RTOS2/RTX/Config/RTX_Config.h
-      Source file:   CMSIS/RTOS2/RTX/Config/RTX_Config.c
       Source file:   CMSIS/RTOS2/RTX/Template/main.c
-      Source file:   CMSIS/RTOS2/RTX/Template/Events.c
       Source file:   CMSIS/RTOS2/RTX/Template/MemPool.c
-      Source file:   CMSIS/RTOS2/RTX/Template/MsgQueue.c
-      Include file:  CMSIS/RTOS2/RTX/Include/rtx_os.h
-      Source file:   CMSIS/RTOS2/RTX/Template/Semaphore.c
-      Source file:   CMSIS/RTOS2/RTX/Template/Mutex.c
-      Library file:  CMSIS/RTOS2/RTX/Library/ARM/RTX_CM0.lib
-      Source file:   CMSIS/RTOS2/RTX/Template/Timer.c
-      Source file:   CMSIS/RTOS2/RTX/Template/Thread.c
       Source file:   CMSIS/RTOS2/RTX/Source/rtx_lib.c
+      Source file:   CMSIS/RTOS2/RTX/Template/Events.c
+      Library file:  CMSIS/RTOS2/RTX/Library/ARM/RTX_CM0.lib
+      Source file:   CMSIS/RTOS2/RTX/Template/MsgQueue.c
+      Source file:   CMSIS/RTOS2/RTX/Template/Mutex.c
+      Source file:   CMSIS/RTOS2/RTX/Template/Semaphore.c
+      Source file:   CMSIS/RTOS2/RTX/Template/Thread.c
+      Source file:   CMSIS/RTOS2/RTX/Template/Timer.c
       Source file:   CMSIS/RTOS2/RTX/Template/svc_user.c
+      Source file:   CMSIS/RTOS2/RTX/Config/RTX_Config.c
+      Include file:  CMSIS/RTOS2/RTX/Include/rtx_os.h
 
    * Component: Keil::Device:Startup:2.5.0
-      Source file:   Device/Source/ARM/startup_MKL25Z4.s
       Source file:   Device/Source/system_MKL25Z4.c
       Include file:  Device/Source/system_MKL25Z4.h
-Build Time Elapsed:  00:00:00
+      Source file:   Device/Source/ARM/startup_MKL25Z4.s
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
