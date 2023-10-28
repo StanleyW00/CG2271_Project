@@ -1,5 +1,5 @@
-#ifndef SERIAL_H
-#define SERIAL_H
+#ifndef UART_H
+#define UART_H
 #include "MKL25Z4.h"
 void InitUART1(uint32_t baud_rate);
 

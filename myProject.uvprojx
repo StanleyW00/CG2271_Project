@@ -388,16 +388,6 @@
               <FilePath>.\main.c</FilePath>
             </File>
             <File>
-              <FileName>colorHandler.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\colorHandler.h</FilePath>
-            </File>
-            <File>
-              <FileName>colorHandler.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\colorHandler.c</FilePath>
-            </File>
-            <File>
               <FileName>buzzer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\buzzer.h</FilePath>
@@ -408,34 +398,34 @@
               <FilePath>.\buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>motor_handler.h</FileName>
+              <FileName>uart.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\motor_handler.h</FilePath>
+              <FilePath>.\uart.h</FilePath>
             </File>
             <File>
-              <FileName>motor_handler.c</FileName>
+              <FileName>motor_control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\motor_control.h</FilePath>
+            </File>
+            <File>
+              <FileName>led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\led.h</FilePath>
+            </File>
+            <File>
+              <FileName>colorHandler.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\colorHandler.h</FilePath>
+            </File>
+            <File>
+              <FileName>colorHandler.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\motor_handler.c</FilePath>
+              <FilePath>.\colorHandler.c</FilePath>
             </File>
             <File>
               <FileName>pwm.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\pwm.h</FilePath>
-            </File>
-            <File>
-              <FileName>pwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\pwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>serial.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\serial.h</FilePath>
-            </File>
-            <File>
-              <FileName>serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\serial.c</FilePath>
             </File>
           </Files>
         </Group>
