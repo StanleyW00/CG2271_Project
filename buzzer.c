@@ -96,6 +96,7 @@ void runningBuzzer() {
 }
 
 void endBuzzer() {
+		TPM1_C0V = 0;
 		osDelay(1000);
 		changeFrequency(784); // f
 		osDelay(1000);
@@ -123,4 +124,5 @@ void endBuzzer() {
 		osDelay(10);
 		changeFrequency(880); // g
 		osDelay(1500);
+		TPM1_C0V = 0;
 }

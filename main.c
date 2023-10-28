@@ -20,10 +20,9 @@ osEventFlagsId_t movingRedFlag;
 osEventFlagsId_t stationGreenFlag;
 osEventFlagsId_t stationRedFlag;
 
-osThreadId_t movingBuzzerThread;
+osEventFlagsId_t endBuzzerActivate;
 
-osSemaphoreId_t endSem;
-osSemaphoreId_t startSem;
+osSemaphoreId_t buzzerSem;
 
 /**
  * Led flag control section. Activates and deactivates
@@ -90,11 +89,10 @@ void UART_led_control(void *argument) {
 		}
 		
 		if ((rx_data & 0x10) == 0x10) {
-			osSemaphoreRelease(startSem);
+			osSemaphoreRelease(buzzerSem);
 		}
 		else if ((rx_data & 0x20) == 0x20) {
-			osSemaphoreRelease(endSem);
-			osThreadSuspend(movingBuzzerThread);
+			osEventFlagsSet(endBuzzerActivate,0x0001);
 		}
 	}
 }
@@ -133,16 +131,71 @@ void stationRedLED (void *argument) {
 }
 
 void movingBuzzer (void *argument) {
-	osSemaphoreAcquire(startSem, osWaitForever);
+	osSemaphoreAcquire(buzzerSem, osWaitForever);
 	
 	for (;;) {
-		runningBuzzer();
-	}
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);
+	//run mode - danny Minecraft
+		changeFrequency(880); // g
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);
+		changeFrequency(988); // a
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);
+		changeFrequency(1109); // b
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);
+		changeFrequency(1176); // c
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);
+		changeFrequency(880); // g
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);		
+		changeFrequency(988); // a
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);		
+		changeFrequency(1109); // b
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);		
+		changeFrequency(1320); // d
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);		
+		changeFrequency(1176); // c
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);		
+		changeFrequency(1109); // b
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);		
+		changeFrequency(1176); // c
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);		
+		changeFrequency(1320); // d
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);		
+		changeFrequency(880); // g
+		osDelay(1000);
+		osSemaphoreRelease(buzzerSem);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);	}
 }
 
 void stopBuzzer (void *argument) {
 	for (;;) {
-		osSemaphoreAcquire(endSem, osWaitForever);
+		osEventFlagsWait(endBuzzerActivate, 0x0001, osFlagsWaitAny, osWaitForever);
+		osSemaphoreAcquire(buzzerSem, osWaitForever);
 		endBuzzer();
 	}
 }
@@ -162,14 +215,14 @@ int main(void)
   // OS section
 	osKernelInitialize();
 	
-	startSem = osSemaphoreNew(1, 0, NULL);
-	endSem = osSemaphoreNew(1, 0, NULL);
+	buzzerSem = osSemaphoreNew(1, 0, NULL);
 
   // Flag creation section
   movingGreenFlag = osEventFlagsNew(NULL);
   movingRedFlag = osEventFlagsNew(NULL);
   stationGreenFlag = osEventFlagsNew(NULL);
   stationRedFlag = osEventFlagsNew(NULL);
+	endBuzzerActivate = osEventFlagsNew(NULL);
 
   // Thread init section
 	
@@ -178,7 +231,7 @@ int main(void)
   osThreadNew(movingRedLED, NULL, NULL);
   osThreadNew(stationGreenLED, NULL, NULL);
   osThreadNew(stationRedLED, NULL, NULL);
-	movingBuzzerThread = osThreadNew(movingBuzzer, NULL, NULL);
+	osThreadNew(movingBuzzer, NULL, NULL);
 	osThreadNew(stopBuzzer, NULL, NULL);
 
   osThreadSetPriority(UART_led_control, osPriorityHigh);
