@@ -3,12 +3,30 @@
 #include "RTE_Components.h"
 #include  CMSIS_device_header
 #include "cmsis_os2.h"
-#include "colorHandler.h"
 
 #define MASK(x) (1 << (x))
 int volatile modValue = 0;
 int volatile cnvValue = 0;
 
+	/*
+	 As reference, remember to times 1.1225 to the frequency every use
+		changeFrequency(524); // c
+		osDelay(1000);
+		changeFrequency(588); // d
+		osDelay(1000);
+		changeFrequency(660); // e
+		osDelay(1000);	
+		changeFrequency(698); // f
+		osDelay(1000);		
+		changeFrequency(784); // g
+		osDelay(1000);
+		changeFrequency(880); // a
+		osDelay(1000);
+		changeFrequency(988); // b
+		osDelay(1000);
+	 
+	*/
+	
 void initBuzzerPWM(void) {
 	SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK;
 	
@@ -74,7 +92,7 @@ void runningBuzzer() {
 		changeFrequency(1320); // d
 		osDelay(1000);
 		changeFrequency(880); // g
-		osDelay(4000);
+		osDelay(1000);
 }
 
 void endBuzzer() {

@@ -3,6 +3,7 @@
 #include CMSIS_device_header
 #include "cmsis_os2.h"
 
+#include "buzzer.h"
 #include "uart.h"
 #include "motor_control.h"
 #include "colorHandler.h"
@@ -18,6 +19,11 @@ osEventFlagsId_t movingGreenFlag;
 osEventFlagsId_t movingRedFlag;
 osEventFlagsId_t stationGreenFlag;
 osEventFlagsId_t stationRedFlag;
+
+osThreadId_t movingBuzzerThread;
+
+osSemaphoreId_t endSem;
+osSemaphoreId_t startSem;
 
 /**
  * Led flag control section. Activates and deactivates
@@ -82,6 +88,14 @@ void UART_led_control(void *argument) {
 			stopMotors();
       motorStopFlagsSet();
 		}
+		
+		if ((rx_data & 0x10) == 0x10) {
+			osSemaphoreRelease(startSem);
+		}
+		else if ((rx_data & 0x20) == 0x20) {
+			osSemaphoreRelease(endSem);
+			osThreadSuspend(movingBuzzerThread);
+		}
 	}
 }
 
@@ -118,6 +132,21 @@ void stationRedLED (void *argument) {
 	}
 }
 
+void movingBuzzer (void *argument) {
+	osSemaphoreAcquire(startSem, osWaitForever);
+	
+	for (;;) {
+		runningBuzzer();
+	}
+}
+
+void stopBuzzer (void *argument) {
+	for (;;) {
+		osSemaphoreAcquire(endSem, osWaitForever);
+		endBuzzer();
+	}
+}
+
 int main(void)
 {
 	SystemCoreClockUpdate();
@@ -126,11 +155,15 @@ int main(void)
   initGPIOLED();
 	InitUART1(BAUD_RATE);
 	initPWM();
+	initBuzzerPWM();
 
   // Initial state
 
   // OS section
 	osKernelInitialize();
+	
+	startSem = osSemaphoreNew(1, 0, NULL);
+	endSem = osSemaphoreNew(1, 0, NULL);
 
   // Flag creation section
   movingGreenFlag = osEventFlagsNew(NULL);
@@ -145,12 +178,16 @@ int main(void)
   osThreadNew(movingRedLED, NULL, NULL);
   osThreadNew(stationGreenLED, NULL, NULL);
   osThreadNew(stationRedLED, NULL, NULL);
+	movingBuzzerThread = osThreadNew(movingBuzzer, NULL, NULL);
+	osThreadNew(stopBuzzer, NULL, NULL);
 
   osThreadSetPriority(UART_led_control, osPriorityHigh);
   osThreadSetPriority(movingGreenLED, osPriorityNormal);
   osThreadSetPriority(movingRedLED, osPriorityNormal);
   osThreadSetPriority(stationGreenLED, osPriorityNormal);
   osThreadSetPriority(stationRedLED, osPriorityNormal);
+	osThreadSetPriority(movingBuzzer, osPriorityNormal);
+	osThreadSetPriority(stopBuzzer, osPriorityHigh1);
 
 	osKernelStart();
 	for(;;){}
