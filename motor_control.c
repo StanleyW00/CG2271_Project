@@ -20,9 +20,9 @@ void moveForward(void) {
 }
 
 void rotateLeft(void) {
-	TPM0_C1V = 5500;
+	TPM0_C1V = 6000;
 	TPM0_C2V = 0;
-	TPM0_C3V = 5500;
+	TPM0_C3V = 6000;
 	TPM0_C4V = 0;
 	//TPM2_C0V = 5000;
 	//TPM2_C1V = 5000;
@@ -30,17 +30,17 @@ void rotateLeft(void) {
 
 void rotateRight(void) {
 	TPM0_C1V = 0;
-	TPM0_C2V = 5500;
+	TPM0_C2V = 6000;
 	TPM0_C3V = 0;
-	TPM0_C4V = 5500;
+	TPM0_C4V = 6000;
 	//TPM2_C0V = 3750;
 	//TPM2_C1V = 3750;
 }
 
 void forwardLeft(void) {
-	TPM0_C1V = 6500;
+	TPM0_C1V = 7000;
 	TPM0_C2V = 0;
-	TPM0_C3V = 0;
+	TPM0_C3V = 1000;
 	TPM0_C4V = 0;
 	//TPM2_C0V = 3750;
 	//TPM2_C1V = 3750;
@@ -48,9 +48,9 @@ void forwardLeft(void) {
 
 void forwardRight(void) {
 	TPM0_C1V = 0;
-	TPM0_C2V = 0;
+	TPM0_C2V = 1000;
 	TPM0_C3V = 0;
-	TPM0_C4V = 6500;
+	TPM0_C4V = 7000;
 	//TPM2_C0V = 3750;
 	//TPM2_C1V = 3750;
 }
